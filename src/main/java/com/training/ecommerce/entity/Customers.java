@@ -14,11 +14,19 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+
 public class Customers {
 
 	@Id
@@ -39,13 +47,14 @@ public class Customers {
 	private int pinCode;
 	
 	@NotNull
-	@Column(unique = true)
+	@Pattern(regexp = "[6-9][0-9]{9}", message = "Please enter Valid Indian Phone Number")
 	private String phoneNumber;
 	
 	@Email(message = "Please Enter Valid email", regexp = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9.-]+$")
 	@NotNull
 	@Column(unique = true)
 	private String email;
+	
 	
 	@Valid
 	@OneToMany(cascade = CascadeType.ALL)
